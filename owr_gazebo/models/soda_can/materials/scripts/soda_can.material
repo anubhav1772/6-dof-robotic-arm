@@ -1,0 +1,13 @@
+material soda_can
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture uda_can.png
+      }
+    }
+  }
+}

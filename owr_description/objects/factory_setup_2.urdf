@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="factory_setup_2">
+  <link name="setup1">
+    <inertial>
+      <origin xyz="-0.0030143 0.84574 0.7222" rpy="0 0 0" />
+      <mass value="201.83" />
+      <inertia ixx="255.44" ixy="0.00282690000000009" ixz="-1.5101" iyy="913.23" iyz="-0.0954500000000035" izz="855.58" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707963267949 0 0" />
+      <geometry>
+        <mesh filename="package://owr_description/meshes/factory_setup/setup1.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707963267949 0 0" />
+      <geometry>
+        <mesh filename="package://owr_description/meshes/factory_setup/setup1.STL" />
+      </geometry>
+    </collision>
+  </link>
+</robot>

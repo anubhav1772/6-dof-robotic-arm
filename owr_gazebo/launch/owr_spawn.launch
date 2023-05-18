@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<launch>
+      <!-- Export env variable so that gazebo finds our models -->
+      <env name="GAZEBO_MODEL_PATH"
+            value="$(find owr_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)" />
+
+      <!-- Launch file parameters -->
+      <arg name="paused" default="false" />
+      <arg name="debug" default="false" />
+      <arg name="headless" default="false" />
+      <arg name="gui" default="true" />
+      <arg name="use_sim_time" default="true" />
+      <arg name="limited" default="false" />
+      <arg name="world_name" default="$(find owr_gazebo)/worlds/6d_pose_estimation.world" /> 
+
+      <!-- Start up simulated world -->
+      <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="$(arg world_name)" />
+            <arg name="use_sim_time" value="$(arg use_sim_time)" />
+            <arg name="paused" value="$(arg paused)" />
+            <arg name="debug" value="$(arg debug)" />
+            <arg name="gui" value="$(arg gui)" />
+            <arg name="headless" value="$(arg headless)" />
+      </include>
+
+      <!-- Send robot urdf to param server -->
+      <include file="$(find owr_gazebo)/launch/owr_description.launch" />
+
+      <!-- Spawn robot in gazebo (and move it upwards):
+            better initial values should be -2.355 and 1.57 but the robot does
+            something strange when unpausing it
+      -->
+      <!-- <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
+            args="-urdf -param robot_description -model owr -z 0.594
+                  -J SJ -1.8
+                  -J EJ 1.0"
+            output="screen" /> -->
+
+      <!-- <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
+            args="-param robot_description -urdf -unpause -z 0.594 -model owr -J owr::SJ -1.8 -J owr::EJ -1.0"
+            output="screen" /> -->
+
+      <!-- <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false"
+      output="screen"
+            args="-param robot_description
+                  -urdf -z 0.594
+                  -model owr"/> -->
+
+      <!-- spawn (robotic arm mode + camera) model in gazebo (at position specified in
+      owr_robot.urdf.xacro)-->
+      <node name="spawn_robot_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false"
+            output="screen"
+            args="-param robot_description -urdf -model owr" />
+
+      <!-- Start controllers  -->
+      <include file="$(find owr_gazebo)/launch/owr_control.launch" />
+
+      <!--<rosparam
+      file="$(find owr_gazebo)/config/gazebo_ros_control_params.yaml" command="load"/>-->
+</launch>

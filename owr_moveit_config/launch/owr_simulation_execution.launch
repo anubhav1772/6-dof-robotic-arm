@@ -1,0 +1,87 @@
+<launch>
+
+	<!-- By default, we are not in debug mode -->
+  	<arg	name="debug"	default="false" />
+  	<arg	name="config"	default="true"	doc=""/>
+	<!-- <arg 	name="use_gui" default="false" /> -->
+	<arg	name="load_robot_description"	default="true" />
+
+	<rosparam command="load" file="$(find owr_moveit_config)/config/owr_jog.yaml"/>
+	
+	<!-- We do not have a robot connected, so publish fake joint states -->
+	<!-- https://answers.ros.org/question/252114/failed-to-validate-trajectory-couldnt-receive-full-current-joint-state-within-1s-error/ -->
+	<!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+		<param name="use_gui" value="$(arg use_gui)"/>
+		<rosparam param="source_list">["/joint_states"]</rosparam>
+	</node> -->
+
+	<!-- Given the published joint states, publish tf for the robot links -->
+	<node	name="robot_state_publisher"	pkg="robot_state_publisher"	type="robot_state_publisher" respawn="true" output="screen" />
+
+	<node	name="static_transform_publisher_1"	pkg="tf" type="static_transform_publisher" 
+          	args="0 0 0 0 0 0 /map /world 100"/>
+
+    <!-- http://wiki.ros.org/tf -->
+	<!-- static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
+	<!--<node	name="kinect_1_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
+		args="-0.069881 1.105768 1.929314 -1.521473 0.092067 0.004926 /world /front_camera_rgb_optical_frame 100"/> -->
+	
+	<!--<node	name="kinect_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
+		args="1.274070 -0.011558 1.961223 -3.121294 0.611102 0.021866 world camera_rgb_optical_frame 100"/>-->
+	
+	<!--GAZEBO POSE OF CAMERA W.R.T. WORLD - 1.274070 -0.011558 1.961223 0.021866 0.611102 -3.121294-->
+	<!--<node	name="kinect_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
+		args="1.274070 -0.011558 1.961223 -3.121294 0.611102 0.021866 world camera_rgb_optical_frame 100"/>-->
+
+	<node	name="kinect_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
+		args="1.274070 -0.011558 1.961223 -3.121294 0.611102 0.021866 world camera_link 100"/> 
+	
+	<node	name="kinect_optical_transform"	pkg="tf" type="static_transform_publisher" 
+		args="0 0 0 -1.5707 0 -1.5707 camera_link camera_rgb_optical_frame 100"/> 
+	
+	<!-- Launch moveit -->
+	<include	file="$(find owr_moveit_config)/launch/move_group.launch">
+		<!--<arg name="fake_execution" value="true"/> -->
+		<!-- <arg 	name="config"	value="$(arg config)"/> -->
+    	<arg 	name="debug"	value="$(arg debug)" />
+    	<arg 	name="load_robot_description"	value="$(arg load_robot_description)" />
+	</include>
+
+	<!-- Launch rviz-->
+	<include	file="$(find owr_moveit_config)/launch/moveit_rviz.launch">
+    	<arg	name="config"	value="$(arg config)"/>
+    	<arg	name="debug"	value="$(arg debug)"/>
+  	</include>
+
+	<!-- Launch pointcloud downsampling node -->
+	<!--<node	name="downsampling"	pkg="robot_vision"	type="downsampling" respawn="true" output="screen" />-->
+	<!-- Point cloud data transformer node -->
+	<!--<node	name="transformer"	pkg="robot_vision"	type="transformer" respawn="false" output="screen"/>--> 
+	
+	<!-- <arg name="resolution"    default="qhd" />
+	<arg name="object_prefix" default="object"/>
+	<arg name="objects_path"  default=""/>
+	<arg name="gui"           default="true"/>
+	<arg name="settings_path" default="~/.ros/find_object_2d.ini"/> -->
+	<!--<arg name="session_path" default="$(find object_detection_with_intel_D415)/sessions/session1.bin"/> -->
+
+	<!-- <node name="find_object_3d" pkg="find_object_2d" type="find_object_2d" output="screen">
+		<param name="gui" value="$(arg gui)" type="bool"/>
+		<param name="settings_path" value="$(arg settings_path)" type="str"/>
+		<param name="subscribe_depth" value="true" type="bool"/>
+		<param name="objects_path" value="$(arg objects_path)" type="str"/>
+		<param name="object_prefix" value="$(arg object_prefix)" type="str"/>
+		<param name="approx_sync" value="false" type="bool"/>
+		<param name="session_path" value="$(find owr_moveit_config)/sessions/session1.bin" type="str"/>
+				
+		<remap from="rgb/image_rect_color" to="/front_camera/rgb/image_raw"/>
+		<remap from="depth_registered/image_raw" to="/front_camera/depth_registered/image_raw"/>
+		<remap from="depth_registered/camera_info" to="/front_camera/depth_registered/camera_info"/>
+	</node>
+	
+	<node name="tf_example" pkg="find_object_2d" type="tf_example" output="screen">
+	    <param name="map_frame_id" value="/camera" type="str"/>
+		<param name="object_prefix" value="$(arg object_prefix)" type="str"/>
+	</node> -->
+	
+</launch>

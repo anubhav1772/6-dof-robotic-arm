@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="owr">
+
+    <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
+
+    <xacro:include filename="$(find owr_description)/urdf/owr.transmission.xacro" />
+    <xacro:include filename="$(find owr_description)/urdf/owr.gazebo.xacro" />
+
+    <!-- camera sensor -->
+    <!--<xacro:include filename="$(find owr_description)/urdf/kinect_sensor.urdf.xacro" />-->
+
+    <!-- common gazebo stuff -->
+    <xacro:include filename="$(find owr_description)/urdf/common.gazebo.xacro" />
+
+    <!-- OWR -->
+    <xacro:include filename="$(find owr_description)/urdf/owr.urdf.xacro" />
+
+    <xacro:owr_robot prefix="" sim="true"/>
+    <xacro:owr_arm_transmission prefix="" hw_interface="$(arg transmission_hw_interface)" />
+    <xacro:owr_arm_gazebo prefix=""/>
+
+    <link name="world" />
+    <joint name="world_joint" type="fixed">
+        <parent link="world" />
+        <child link="base_link" />
+        <origin xyz="0.0 0.0 0.75" rpy="0.0 0.0 0.0" />
+    </joint>
+</robot>

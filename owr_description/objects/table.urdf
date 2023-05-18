@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="table">
+  <link
+    name="table">
+    <inertial>
+      <origin
+        xyz="-2.0476E-06 -0.16999 0.20455"
+        rpy="0 0 0" />
+      <mass
+        value="21.421" />
+      <inertia
+        ixx="1.9685"
+        ixy="0.00023657"
+        ixz="-0.0015569"
+        iyy="3.1157"
+        iyz="0.22894"
+        izz="3.7955" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="1.5707963267949 0 0" />
+      <geometry>
+        <mesh
+          filename="package://owr_description/meshes/table.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <!-- <texture
+          filename="package://owr_description/textures/" /> -->
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="1.5707963267949 0 0" />
+      <geometry>
+        <mesh
+          filename="package://owr_description/meshes/table.STL" />
+      </geometry>
+    </collision>
+  </link>
+</robot>

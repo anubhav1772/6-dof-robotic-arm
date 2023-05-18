@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="owr_arm_transmission" params="prefix hw_interface">
+
+    <transmission name="${prefix}BJ_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}BJ">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}BJ_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${prefix}SJ_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}SJ">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}SJ_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${prefix}EJ_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}EJ">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}EJ_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${prefix}W1J_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}W1J">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}W1J_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${prefix}W2J_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}W2J">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}W2J_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <transmission name="${prefix}W3J_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${prefix}W3J">
+        <hardwareInterface>${hw_interface}</hardwareInterface>
+      </joint>
+      <actuator name="${prefix}W3J_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+  </xacro:macro>
+
+</robot>

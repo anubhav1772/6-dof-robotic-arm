@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<robot name="owr_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Inertia parameters -->
+    <!-- With soft limits -->
+    <!-- 
+        <xacro:property name="BJ_lower_limit" value="-2.0944" />
+        <xacro:property name="BJ_upper_limit" value="2.0944" />
+        <xacro:property name="SJ_lower_limit" value="-1.5708" />
+        <xacro:property name="SJ_upper_limit" value="1.5708" />
+        <xacro:property name="EJ_lower_limit" value="-3.92699" />
+        <xacro:property name="EJ_upper_limit" value="1.0472" />
+        <xacro:property name="W1J_lower_limit" value="-1.5708" />
+        <xacro:property name="W1J_upper_limit" value="1.5708" />
+        <xacro:property name="W2J_lower_limit" value="-1.0472" />
+        <xacro:property name="W2J_upper_limit" value="2.618" />
+        <xacro:property name="W3J_lower_limit" value="${-pi}" />
+        <xacro:property name="W3J_upper_limit" value="${pi}" /> 
+    -->
+
+    <!-- Without soft limits -->
+    <!-- [-120, 120] -->
+    <xacro:property name="BJ_lower_limit" value="${-2/3*pi}" />
+    <xacro:property name="BJ_upper_limit" value="${2/3*pi}" />
+    <!-- [-90, 90] -->
+    <xacro:property name="SJ_lower_limit" value="${-pi/2}" />
+    <xacro:property name="SJ_upper_limit" value="${pi/2}" />
+    <!-- [-225, 60] -->
+    <xacro:property name="EJ_lower_limit" value="${-pi-pi/4}" />
+    <xacro:property name="EJ_upper_limit" value="${pi/3}" />
+    <!-- [-90, 90] -->
+    <xacro:property name="W1J_lower_limit" value="${-pi/2}" />
+    <xacro:property name="W1J_upper_limit" value="${pi/2}" />
+    <!-- [-60, 150] -->
+    <xacro:property name="W2J_lower_limit" value="${-pi/3}" />
+    <xacro:property name="W2J_upper_limit" value="${pi-pi/6}" />
+    <!-- [-180, 180] -->
+    <xacro:property name="W3J_lower_limit" value="${-pi}" />
+    <xacro:property name="W3J_upper_limit" value="${pi}" />
+
+    <xacro:property name="bl_mass" value="2.00431395827099" />
+    <xacro:property name="bsl_mass" value="1.97583366234436" />
+    <xacro:property name="sel_mass" value="6.92438507119168" />
+    <xacro:property name="ew1l_mass" value="1.64092408380158" />
+    <xacro:property name="w1w2l_mass" value="2.38378471545783" />
+    <xacro:property name="w2w3l_mass" value="2.16776601749277" />
+    <xacro:property name="w3eefl_mass" value="0.542548240711207" />
+
+    <xacro:property name="BJ_effort" value="200" />
+    <xacro:property name="SJ_effort" value="200" />
+    <xacro:property name="EJ_effort" value="200" />
+    <xacro:property name="W1J_effort" value="200" />
+    <xacro:property name="W2J_effort" value="200" />
+    <xacro:property name="W3J_effort" value="200" />
+
+    <xacro:property name="BJ_vel" value="5" />
+    <xacro:property name="SJ_vel" value="5" />
+    <xacro:property name="EJ_vel" value="5" />
+    <xacro:property name="W1J_vel" value="5" />
+    <xacro:property name="W2J_vel" value="5" />
+    <xacro:property name="W3J_vel" value="5" />
+
+    <!-- 
+        <xacro:property name="bl_stl" value="package://owr_description/meshes/base_link.STL" />
+        <xacro:property name="bsl_stl" value="package://owr_description/meshes/BS.STL" />
+        <xacro:property name="sel_stl" value="package://owr_description/meshes/BE.STL" />
+        <xacro:property name="ew1l_stl" value="package://owr_description/meshes/EW1.STL" />
+        <xacro:property name="w1w2l_stl" value="package://owr_description/meshes/W12.STL" />
+        <xacro:property name="w2w3l_stl" value="package://owr_description/meshes/W23.STL" />
+        <xacro:property name="w3eefl_stl" value="package://owr_description/meshes/W3Eff.STL" /> 
+    -->
+
+    <xacro:property name="prefix_stl" value="file://$(find owr_description)/meshes/collision" />
+    <xacro:property name="bl_stl" value="${prefix_stl}/base_link.STL" />
+    <xacro:property name="bsl_stl" value="${prefix_stl}/BS_Link.STL" />
+    <xacro:property name="sel_stl" value="${prefix_stl}/SE_Link.STL" />
+    <xacro:property name="ew1l_stl" value="${prefix_stl}/EW1_Link.STL" />
+    <xacro:property name="w1w2l_stl" value="${prefix_stl}/W12_Link.STL" />
+    <xacro:property name="w2w3l_stl" value="${prefix_stl}/W23_Link.STL" />
+    <xacro:property name="w3eefl_stl" value="${prefix_stl}/W3Eff_Link.STL" />
+
+    <xacro:property name="prefix_dae" value="file://$(find owr_description)/meshes/visual" />
+    <xacro:property name="bl_dae" value="${prefix_dae}/base.dae" />
+    <xacro:property name="bsl_dae" value="${prefix_dae}/bs.dae" />
+    <xacro:property name="sel_dae" value="${prefix_dae}/be.dae" />
+    <xacro:property name="ew1l_dae" value="${prefix_dae}/EW1.dae" />
+    <xacro:property name="w1w2l_dae" value="${prefix_dae}/w12.dae" />
+    <xacro:property name="w2w3l_dae" value="${prefix_dae}/W23.dae" />
+    <xacro:property name="w3eefl_dae" value="${prefix_dae}/w3eff.dae" />
+
+    <xacro:macro name="owr_robot" params="prefix sim:=true">
+
+        <link name="${prefix}base_link">
+            <inertial>
+                <origin xyz="3.26945350830445E-18 0.0475560449135545 1.03923298601914E-18" rpy="0 0 0" />
+                <mass value="${bl_mass}" />
+                <inertia ixx="0.00559780558915754" ixy="2.08121312953797E-19" ixz="-2.03088203267664E-36" iyy="0.00632266595300574" iyz="3.02972434618886E-20" izz="0.00559780558915754" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${bl_stl}" />
+                </geometry>
+                <geometry>
+                    <mesh filename="${bl_dae}"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.439216 0.47451 0.501961 1.0" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${bl_stl}" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}BJ" type="revolute">
+            <origin xyz="0 0 0.1181" rpy="0 0 0" />
+            <parent link="${prefix}base_link" />
+            <child link="${prefix}BS_Link" />
+            <axis xyz="0 0 1" />
+            <limit lower="${BJ_lower_limit}" upper="${BJ_upper_limit}" effort="${BJ_effort}" velocity="${BJ_vel}" />
+
+            <!-- <safety_controller soft_lower="${BJ_lower_limit+0.1}" soft_upper="${BJ_upper_limit-0.1}" k_velocity="0" /> -->
+            <!-- particularly useful for simulation -->
+            <dynamics damping="0.0" friction="0.0"/>
+        </joint>
+
+        <link name="${prefix}BS_Link">
+            <inertial>
+                <origin xyz="-2.23815285813307E-07 0.0379790003524418 0.0624393623259869" rpy="0 0 0" />
+                <mass value="${bsl_mass}" />
+                <inertia ixx="0.00633633680688803" ixy="5.53297653948722E-09" ixz="1.10027473238432E-08" iyy="0.00431174755033153" iyz="-0.00121307806869219" izz="0.00588373141716525" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${bsl_stl}" />
+                </geometry>
+                <!-- <geometry>
+                    <mesh filename="${bsl_dae}"/>
+                </geometry> -->
+                <material name="">
+                    <color rgba="0.866667 0.321569 0.156863 1.0" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${bsl_stl}" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}SJ" type="revolute">
+            <origin xyz="0 0.1157 0.0775" rpy="0 0 0" />
+            <parent link="${prefix}BS_Link" />
+            <child link="${prefix}SE_Link" />
+            <axis xyz="0 1 0" />
+            <limit lower="${SJ_lower_limit}" upper="${SJ_upper_limit}" effort="${SJ_effort}" velocity="${SJ_vel}" />
+
+            <!-- <safety_controller soft_lower="${SJ_lower_limit+0.03}" soft_upper="${SJ_upper_limit-0.03}" k_velocity="0" /> -->
+            <!-- particularly useful for simulation -->
+            <dynamics damping="0.0" friction="0.0"/>
+        </joint>
+
+        <link name="${prefix}SE_Link">
+            <inertial>
+                <origin xyz="2.50150839169102E-18 0.0491871756151301 0.177875" rpy="0 0 0" />
+                <mass value="${sel_mass}" />
+                <inertia ixx="0.13565458366121" ixy="1.62637671478552E-19" ixz="-3.10060648119612E-18" iyy="0.141881889957825" iyz="1.26283834369711E-17" izz="0.01733034956749" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <!-- <geometry>
+                    <mesh filename="${sel_dae}"/>
+                </geometry> -->
+                <geometry>
+                    <mesh filename="${sel_stl}" />
+                </geometry>
+                <material name="">
+                    <color rgba="1 0.756863 0.054902 1.0" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${sel_stl}" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}EJ" type="revolute">
+            <origin xyz="0 0 0.35575" rpy="0 0 0" />
+            <parent link="${prefix}SE_Link" />
+            <child link="${prefix}EW1_Link" />
+            <axis xyz="0 1 0" />
+            <limit lower="${EJ_lower_limit}" upper="${EJ_upper_limit}" effort="${EJ_effort}" velocity="${EJ_vel}" />
+
+            <!-- <safety_controller soft_lower="${EJ_lower_limit+0.1}" soft_upper="${EJ_upper_limit-0.1}" k_velocity="0" /> -->
+            <!-- particularly useful for simulation -->
+            <dynamics damping="0.0" friction="0.0"/>
+        </joint>
+
+        <link name="${prefix}EW1_Link">
+            <inertial>
+                <origin xyz="0.00964296883173089 -0.069409712721787 6.49394750775745E-05" rpy="0 0 0" />
+                <mass value="${ew1l_mass}" />
+                <inertia ixx="0.00433302226551719" ixy="0.000795034760133281" ixz="2.13272246028262E-07" iyy="0.00315022911015594" iyz="2.61373190609785E-06" izz="0.004670087340654" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <!-- <geometry>
+                    <mesh filename="${ew1l_dae}"/>
+                </geometry> -->
+                <geometry>
+                    <mesh filename="${ew1l_stl}" />
+                </geometry>
+                <material name="">
+                    <color rgba="0.372549 0.654902 0.239216 1.0" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${ew1l_stl}" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}W1J" type="revolute">
+            <origin xyz="0.0695 -0.1157 0" rpy="0 0 0" />
+            <parent link="${prefix}EW1_Link" />
+            <child link="${prefix}W1W2_Link" />
+            <axis xyz="1 0 0" />
+            <limit lower="${W1J_lower_limit}" upper="${W1J_upper_limit}" effort="${W1J_effort}" velocity="${W1J_vel}" />
+
+            <!-- <safety_controller soft_lower="${W1J_lower_limit+0.03}" soft_upper="${W1J_upper_limit-0.03}" k_velocity="0" /> -->
+            <!-- particularly useful for simulation -->
+            <dynamics damping="0.0" friction="0.0"/>
+        </joint>
+
+        <link name="${prefix}W1W2_Link">
+            <inertial>
+                <origin xyz="0.122416824512388 -0.070835232118926 -6.35496342438202E-07" rpy="0 0 0" />
+                <mass value="${w1w2l_mass}" />
+                <inertia ixx="0.00656420598358183" ixy="0.00554676162331256" ixz="-1.42658921336938E-08" iyy="0.0257284659921832" iyz="5.99320555321235E-08" izz="0.0282762053128848" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <!-- <geometry>
+                    <mesh filename="${w1w2l_dae}"/>
+                </geometry> -->
+                <geometry>
+                    <mesh filename="${w1w2l_stl}" />
+                </geometry>
+                <material name="">
+                    <color rgba="0.32549 0.529412 0.752941 1.0" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${w1w2l_stl}" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}W2J" type="revolute">
+            <origin xyz="0.28625 0 0" rpy="0 0 0" />
+            <parent link="${prefix}W1W2_Link" />
+            <child link="${prefix}W2W3_Link" />
+            <axis xyz="0 1 0" />
+            <limit lower="${W2J_lower_limit}" upper="${W2J_upper_limit}" effort="${W2J_effort}" velocity="${W2J_vel}" />
+
+            <!-- <safety_controller soft_lower="${W2J_lower_limit+0.03}" soft_upper="${W2J_upper_limit-0.1}" k_velocity="0" /> -->
+            <!-- particularly useful for simulation -->
+            <dynamics damping="0.0" friction="0.0"/>
+        </joint>
+
+        <link name="${prefix}W2W3_Link">
+            <inertial>
+                <origin xyz="0.00448693932692878 -0.00693126827424433 0.0578431512744524" rpy="0 0 0" />
+                <mass value="${w2w3l_mass}" />
+                <inertia ixx="0.00982478610028387" ixy="-6.74414524982295E-05" ixz="-0.000653082358596031" iyy="0.00957809977704417" iyz="-0.000917655229213172" izz="0.00385756520688612" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <!-- <geometry>
+                    <mesh filename="${w2w3l_dae}"/>
+                </geometry> -->
+                <geometry>
+                    <mesh filename="${w2w3l_stl}" />
+                </geometry>
+                <material name="">
+                    <color rgba="0.513725 0.415686 0.733333 1.0" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${w2w3l_stl}" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}W3J" type="revolute">
+            <origin xyz="0.0635 0 0.12" rpy="0 0 0" />
+            <parent link="${prefix}W2W3_Link" />
+            <child link="${prefix}W3EEF_Link" />
+            <axis xyz="1 0 0" />
+            <limit lower="${W3J_lower_limit}" upper="${W3J_upper_limit}" effort="${W3J_effort}" velocity="${W3J_vel}" />
+
+            <!-- <safety_controller soft_lower="${W3J_lower_limit+0.01}" soft_upper="${W3J_upper_limit-0.01}" k_velocity="0" /> -->
+            <!-- particularly useful for simulation -->
+            <dynamics damping="0.0" friction="0.0"/>
+        </joint>
+
+        <link name="${prefix}W3EEF_Link">
+            <inertial>
+                <origin xyz="0.0313921684941835 5.73430521827697E-08 -7.81709305108791E-06" rpy="0 0 0" />
+                <mass value="${w3eefl_mass}" />
+                <inertia ixx="0.00073681574143187" ixy="8.23684417617962E-22" ixz="1.40415282317197E-07" iyy="0.000548089226198482" iyz="3.0678420032912E-20" izz="0.000548195288104005" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <!-- <geometry>
+                    <mesh filename="${w3eefl_dae}"/>
+                </geometry> -->
+                <geometry>
+                    <mesh filename="${w3eefl_stl}" />
+                </geometry>
+                <material name="">
+                    <color rgba="0.901961 0.901961 0.901961 1.0" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="${w3eefl_stl}" />
+                </geometry>
+            </collision>
+        </link>
+
+        <!--<link name="${prefix}EEF_Link"/>-->
+        <joint name="${prefix}eef_fixed_joint" type="fixed">
+            <parent link="${prefix}W3EEF_Link" />
+            <child link = "${prefix}EEF_Link" />
+            <origin xyz="0.0675 0 0" rpy="0 0 0" />
+        </joint>
+
+
+        <link name="${prefix}EEF_Link">
+            <collision>
+                <geometry>
+                    <box size="0.001 0.001 0.001"/>
+                </geometry>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="1 0 0 1.0"/>
+                </material>
+            </visual>
+        </link>
+        
+        <!-- 
+            The root link base_link has an inertia specified in the URDF, 
+            but KDL does not support a root link with an inertia.  
+            As a workaround, you can add an extra dummy link to your URDF.
+        -->
+        <!-- 
+            The fix is to add an extra link (non-inertial) and joint to 
+            the top of the URDF file such that the new link is the reference 
+            for the rest of the robot. 
+        -->
+        <!-- 
+            base_footprint is a fictitious link(frame) that is on the ground 
+            right below base_link origin 
+        -->
+        <xacro:unless value="${sim}">
+            <link name="${prefix}base_footprint" />
+
+            <joint name="${prefix}base_footprint_joint" type="fixed">
+                <parent link="${prefix}base_footprint" />
+                <child link="${prefix}base_link" />
+            </joint>
+      </xacro:unless>
+    </xacro:macro>
+</robot>

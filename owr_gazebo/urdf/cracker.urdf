@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="cracker">
+  <link name="cracker">
+    <visual>
+        <geometry>
+            <!--<mesh filename="package://owr_gazebo/models/cracker/textured.dae"/>-->
+            <mesh filename="package://owr_gazebo/models/disk_part/disk.dae"/>
+        </geometry>
+    </visual>
+  </link>
+</robot>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="owr_arm_gazebo" params="prefix">
+
+        <gazebo reference="${prefix}base_link">
+            <selfCollide>true</selfCollide>
+        </gazebo>
+        <gazebo reference="${prefix}BS_Link">
+            <selfCollide>true</selfCollide>
+        </gazebo>
+        <gazebo reference="${prefix}SE_Link">
+            <selfCollide>true</selfCollide>
+        </gazebo>
+        <gazebo reference="${prefix}EW1_Link">
+            <selfCollide>true</selfCollide>
+        </gazebo>
+        <gazebo reference="${prefix}W1W2_Link">
+            <selfCollide>true</selfCollide>
+        </gazebo>
+        <gazebo reference="${prefix}W2W3_Link">
+            <selfCollide>true</selfCollide>
+        </gazebo>
+        <gazebo reference="${prefix}W3EEF_Link">
+            <selfCollide>true</selfCollide>
+        </gazebo>
+        <gazebo reference="${prefix}EEF_Link">
+            <selfCollide>true</selfCollide>
+        </gazebo>
+        
+    </xacro:macro>
+
+</robot>

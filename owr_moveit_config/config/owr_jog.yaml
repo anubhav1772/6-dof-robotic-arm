@@ -1,0 +1,18 @@
+jog_joint_node:
+  # Specify the list of joint to jog here. You can see the joint names
+  # in tra1_moveit_config/config/tra1_controllers.yaml
+  joint_names:
+    - BJ
+    - SJ
+    - EJ
+    - W1J
+    - W2J
+    - W3J
+
+jog_frame_node:
+  # Specify the list of group name of moveit to jog. You can see the
+  # names in tra1_moveit_config/config/tra1.srdf
+  group_names:
+    - arm_manipulator
+  link_names:
+    - EEF_Link

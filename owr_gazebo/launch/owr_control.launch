@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+      <!-- Launch file parameters -->
+      <arg name="debug" default="true" />
+
+      <arg if = "$(arg debug)"  name="DEBUG" value="screen"/>
+      <arg unless = "$(arg debug)"  name="DEBUG" value="log"/>
+
+      <!-- Controllers config -->
+      <rosparam file="$(find owr_gazebo)/config/controllers.yaml" command="load" />
+
+      <!-- Load controllers -->
+      <!-- <node name="owr_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+            output="$(arg DEBUG)"
+            args="joint_state_controller 
+                  arm_manipulator_controller 
+                  gripper_manipulator_controller"/> -->
+                  
+      <node name="owr_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+            output="$(arg DEBUG)"
+            args="joint_state_controller 
+                  arm_manipulator_controller"/>
+
+      <!-- <node name="owr_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+            output="$(arg DEBUG)"
+            args="joint_state_controller 
+                  BJ_position_controller
+                  SJ_position_controller
+                  EJ_position_controller
+                  W1J_position_controller
+                  W2J_position_controller
+                  W3J_position_controller"/> -->
+
+</launch>
