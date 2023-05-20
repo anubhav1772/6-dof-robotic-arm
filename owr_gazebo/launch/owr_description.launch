@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <launch>
   
-  <param name="robot_description" command="$(find xacro)/xacro '$(find owr_description)/urdf/owr_robot.urdf.xacro'" />
+  <!--WITHOUT GRIPPER-->
+  <!--<param name="robot_description" command="$(find xacro)/xacro '$(find owr_description)/urdf/owr_robot.urdf.xacro'" />-->
+  <!--WITH GRIPPER-->
+  <param name="robot_description" command="$(find xacro)/xacro '$(find owr_description)/urdf/gripper/owr_robotiq_140.xacro'" />
+
 
 </launch>

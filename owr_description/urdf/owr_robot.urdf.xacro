@@ -7,6 +7,8 @@
     <xacro:include filename="$(find owr_description)/urdf/owr.gazebo.xacro" />
 
     <!-- camera sensor -->
+    <!--<xacro:include filename="$(find owr_description)/urdf/front_sensor.urdf.xacro" />-->
+    <!--<xacro:include filename="$(find owr_description)/urdf/side_sensor.urdf.xacro" />-->
     <!--<xacro:include filename="$(find owr_description)/urdf/kinect_sensor.urdf.xacro" />-->
 
     <!-- common gazebo stuff -->
@@ -14,15 +16,56 @@
 
     <!-- OWR -->
     <xacro:include filename="$(find owr_description)/urdf/owr.urdf.xacro" />
+  
+    <!-- GRIPPER -->
+    <!-- <xacro:include filename="$(find owr_description)/urdf/gripper.urdf.xacro" /> -->
 
     <xacro:owr_robot prefix="" sim="true"/>
     <xacro:owr_arm_transmission prefix="" hw_interface="$(arg transmission_hw_interface)" />
     <xacro:owr_arm_gazebo prefix=""/>
 
     <link name="world" />
+
+    <!--Note that the object is fixed to the world at the position 
+        we specify in the joint, not the parameters we give to spawn_model -->
     <joint name="world_joint" type="fixed">
         <parent link="world" />
         <child link="base_link" />
         <origin xyz="0.0 0.0 0.75" rpy="0.0 0.0 0.0" />
     </joint>
+
+    <!-- <joint name="owr_gripper_joint" type="fixed">
+        <parent link="EEF_Link" />
+        <child link="gripper_body" />
+        <origin xyz="0.0163 0.053 0.03" rpy="0 1.5708 0" />
+    </joint> -->
+
+    <!-- <link name="grasp_link">
+        <collision>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <material name="">
+                <color rgba="1 0 0 1.0"/>
+            </material>
+        </visual>
+    </link> -->
+
+    <!-- <link name="grasp_link" /> -->
+
+    <!-- distance(EEF_Link, grasp_link) = 0.085 -->
+    <!-- <joint name="grasp_dummy_joint" type="fixed">
+        <parent link="EEF_Link" />
+        <child link="grasp_link" />
+        <origin xyz="0.087 0.0 0.0" rpy="0 0 0" />
+    </joint> -->
+
+
 </robot>

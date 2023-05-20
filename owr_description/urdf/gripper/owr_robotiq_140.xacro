@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="owr_gripper">
+    <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" />
+    
+    <!-- common gazebo stuff -->
+    <xacro:include filename="$(find owr_description)/urdf/common.gazebo.xacro" />
+    <xacro:include filename="$(find owr_description)/urdf/owr.transmission.xacro" />
+    <!-- include macros for OWR and the Robotiq eef model -->
+    <xacro:include filename="$(find owr_description)/urdf/owr.gazebo.xacro" />
+    <xacro:include filename="$(find owr_description)/urdf/gripper/robotiq_arg2f_140_model_macro.xacro" />
+    <xacro:include filename="$(find owr_description)/urdf/gripper/robotiq_fts300.urdf.xacro" />
+
+    <!-- OWR -->
+    <xacro:include filename="$(find owr_description)/urdf/owr.urdf.xacro" />
+
+    
+    <xacro:owr_arm_transmission prefix="" hw_interface="$(arg transmission_hw_interface)" />
+    <xacro:owr_arm_gazebo prefix=""/>
+
+    <xacro:macro name="owr_with_gripper" params="prefix sim">
+      <xacro:owr_robot prefix="${prefix}" sim="${sim}"/>
+
+      <link name="world" />
+
+      <!--Note that the object is fixed to the world at the position 
+        we specify in the joint, not the parameters we give to spawn_model -->
+      <joint name="world_joint" type="fixed">
+        <parent link="world" />
+        <child link="base_link" />
+        <origin xyz="0.0 0.0 0.75" rpy="0.0 0.0 0.0" />
+      </joint>
+
+      <!--force torque sensor-->
+      <xacro:robotiq_fts150 prefix="" parent="EEF_Link" >
+        <origin xyz="0.009 0 0 " rpy="-${pi/2} 0 -${pi/2}"/>
+      </xacro:robotiq_fts150>
+
+      <!-- gripper -->
+      <xacro:robotiq_arg2f_140 prefix="${prefix}" />
+      <joint name="owr_EEF_Link_gripper_base" type="fixed">
+        <parent link= "${prefix}fts_toolside" />
+        <child link = "${prefix}robotiq_arg2f_base_link" />
+        <origin xyz=" 0.0 0.0 0.0" rpy="0.0 0.0 ${pi/2}" />
+      </joint>
+
+      <!--<link name="${prefix}tool" />
+      <joint name="tool_tip" type="fixed">
+        <parent link= "${prefix}EEF_Link" />
+        <child link = "${prefix}tool" />
+        <origin xyz=" 0.00 0.0 0.2" rpy="0.0 0.0 0.0" />
+      </joint>-->
+    </xacro:macro>
+
+    <xacro:owr_with_gripper prefix="" sim="true"/>
+</robot>

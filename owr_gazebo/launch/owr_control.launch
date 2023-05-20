@@ -19,7 +19,8 @@
       <node name="owr_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
             output="$(arg DEBUG)"
             args="joint_state_controller 
-                  arm_manipulator_controller"/>
+                  arm_manipulator_controller
+                  gripper_trajectory_controller"/>
 
       <!-- <node name="owr_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
             output="$(arg DEBUG)"

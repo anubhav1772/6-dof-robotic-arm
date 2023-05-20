@@ -3,15 +3,6 @@ joint_state_controller:
   publish_rate: 50
   type: joint_state_controller/JointStateController
 
-# gripper_manipulator_controller:
-#   type: position_controllers/JointTrajectoryController
-#   joints: 
-#     - finger_joint1
-#     - finger_joint2
-  # gains:
-  #   finger_joint1: {p: 750.0, i: 1, d: 10.0}
-  #   finger_joint2: {p: 750.0, i: 1, d: 10.0}
-
 # https://answers.ros.org/question/356349/difference-between-arm_controller-and-joint_group_position_controller/
 # Trajectory controller
 # ^^^^^^^^^^^^^^^^^^^^^^
@@ -41,6 +32,29 @@ arm_manipulator_controller:
   action_monitor_rate: 20
   allow_partial_joints_goal: True
 
+# GripperActionCOntroller is useful only for a one DOF gripper 
+# (only one movable finger). It is useless for parallel grippers 
+# where you want to actuate both the fingers. 
+# You can instead use JointTrajectoryController which does 
+# the job well for multiple fingers in the end-effector.
+#gripper_controller:
+#  type: gripper_action_controller/GripperActionController
+#  joints: 
+#    - finger_joint
+
+gripper_trajectory_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - finger_joint
+  constraints:
+    goal_time: 0.6
+    stopped_velocity_tolerance: 0.05
+    finger_joint: {trajectory: 0.1, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
+
+#GripperActionController
 # Joint Group Position Controller (for group of joint controllers)
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 # uses JointGroupPositionController to control the robot's joint by directly 
@@ -85,11 +99,20 @@ joint_group_position_controller:
 # gripper_manipulator_controller:
 #   type: position_controllers/JointTrajectoryController
 #   joints:
-#      - robotiq_85_left_knuckle_joint
+#      - finger_joint
 #   constraints:
 #       goal_time: 0.6
 #       stopped_velocity_tolerance: 0.05
-#       robotiq_85_left_knuckle_joint: {trajectory: 0.1, goal: 0.1}
+#       finger_joint: {trajectory: 0.1, goal: 0.1}
 #   stop_trajectory_duration: 0.5
 #   state_publish_rate:  25
 #   action_monitor_rate: 10
+
+# gripper_manipulator_controller:
+#   type: position_controllers/JointTrajectoryController
+#   joints: 
+#     - finger_joint1
+#     - finger_joint2
+  # gains:
+  #   finger_joint1: {p: 750.0, i: 1, d: 10.0}
+  #   finger_joint2: {p: 750.0, i: 1, d: 10.0}
