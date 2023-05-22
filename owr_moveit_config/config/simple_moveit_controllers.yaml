@@ -1,10 +1,8 @@
-controller_manager_ns: controller_manager
-# Load joint trajectory controller
 controller_list:
   - name: arm_manipulator_controller
     action_ns: follow_joint_trajectory
-    default: true
     type: FollowJointTrajectory
+    default: True
     joints:
       - BJ
       - SJ
@@ -12,10 +10,9 @@ controller_list:
       - W1J
       - W2J
       - W3J
-
   - name: gripper_trajectory_controller
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
-    default: true
+    default: True
     joints:
       - finger_joint

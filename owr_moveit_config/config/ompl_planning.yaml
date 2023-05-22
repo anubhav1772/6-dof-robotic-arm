@@ -1,4 +1,11 @@
 planner_configs:
+  AnytimePathShortening:
+    type: geometric::AnytimePathShortening
+    shortcut: true  # Attempt to shortcut all new solution paths
+    hybridize: true  # Compute hybrid solution trajectories
+    max_hybrid_paths: 24  # Number of hybrid paths generated per iteration
+    num_planners: 4  # The number of default planners to use for planning
+    planners: ""  # A comma-separated list of planner types (e.g., "PRM,EST,RRTConnect"Optionally, planner parameters can be passed to change the default:"PRM[max_nearest_neighbors=5],EST[goal_bias=.5],RRT[range=10. goal_bias=.1]"
   SBL:
     type: geometric::SBL
     range: 0.0  # Max motion added to tree. ==> maxDistance_ default: 0.0, if 0.0, set on setup()
@@ -123,6 +130,7 @@ planner_configs:
 arm_manipulator:
   default_planner_config: RRTConnect
   planner_configs:
+    - AnytimePathShortening
     - SBL
     - EST
     - LBKPIECE
@@ -148,9 +156,10 @@ arm_manipulator:
     - SPARStwo
   projection_evaluator: joints(BJ,SJ)
   longest_valid_segment_fraction: 0.005
-gripper_manipulator:
-  default_planner_config: ""
+gripper:
+  default_planner_config: RRTConnect
   planner_configs:
+    - AnytimePathShortening
     - SBL
     - EST
     - LBKPIECE
@@ -174,5 +183,3 @@ gripper_manipulator:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints(finger_joint1,finger_joint2)
-  longest_valid_segment_fraction: 0.005

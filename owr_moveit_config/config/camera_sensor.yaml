@@ -1,4 +1,0 @@
-# list of sensor topics
-camera_sensors:
-  rgb: ["/front_camera/rgb/image_raw", "/side_camera/rgb/image_raw"] 
-  depth: ["/front_camera/depth_registered/image_raw", /side_camera/depth_registered/image_raw]

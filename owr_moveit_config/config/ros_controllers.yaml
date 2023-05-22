@@ -34,9 +34,9 @@ controller_list:
       - W2J
       - W3J
   
-  # - name: gripper_manipulator_controller
-  #   action_ns: follow_joint_trajectory
-  #   type: FollowJointTrajectory
-  #   joints:
-  #     - finger_joint1
-  #     - finger_joint2
+  - name: gripper_trajectory_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - finger_joint

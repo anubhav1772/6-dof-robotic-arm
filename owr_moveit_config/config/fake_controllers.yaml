@@ -1,5 +1,6 @@
 controller_list:
   - name: fake_arm_manipulator_controller
+    type: $(arg fake_execution_type)
     joints:
       - BJ
       - SJ
@@ -7,7 +8,12 @@ controller_list:
       - W1J
       - W2J
       - W3J
-  - name: fake_gripper_manipulator_controller
+  - name: fake_gripper_controller
+    type: $(arg fake_execution_type)
     joints:
-      - finger_joint1
-      - finger_joint2
+      - finger_joint
+initial:  # Define initial robot poses per group
+  - group: arm_manipulator
+    pose: UP
+  - group: gripper
+    pose: OPEN
