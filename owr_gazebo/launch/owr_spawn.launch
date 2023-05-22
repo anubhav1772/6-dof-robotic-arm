@@ -1,25 +1,32 @@
 <?xml version="1.0"?>
 <launch>
       <!-- Export env variable so that gazebo finds our models -->
-      <env name="GAZEBO_MODEL_PATH"
+      <env  name="GAZEBO_MODEL_PATH"
             value="$(find owr_gazebo)/models:$(optenv GAZEBO_MODEL_PATH)" />
 
       <!-- Launch file parameters -->
-      <arg name="paused" default="false" />
-      <arg name="debug" default="false" />
-      <arg name="headless" default="false" />
-      <arg name="gui" default="true" />
-      <arg name="use_sim_time" default="true" />
-      <arg name="limited" default="false" />
-      <!-- <arg name="world_name" default="$(find owr_gazebo)/worlds/demo.world" /> -->
-      <!-- <arg name="world_name" default="$(find owr_gazebo)/worlds/pick_place.world" /> -->
-      <arg name="world_name" default="$(find owr_gazebo)/worlds/6d_pose_estimation.world" /> 
-      <!--<arg name="world_name" default="$(find owr_gazebo)/worlds/factory.world" /> -->
+      <arg  name="paused" default="false" />
+      <arg  name="debug" default="false" />
+      <arg  name="headless" default="false" />
+      <arg  name="gui" default="true" />
+      <arg  name="use_sim_time" default="true" />
+      <arg  name="limited" default="false" />
+      <!-- world_pose working -->
+      <arg	name="world_pose" default="-x 0 -y 0 -z 0 -R 0 -P 0 -Y 0" doc="Pose to spawn the robot at"/>
+      <!-- initial_joint_positions not working -->
+  	<arg	name="initial_joint_positions" 
+		default=" -J BJ 0 -J EJ 0 -J SJ 0 -J W1J 0 -J W2J 0 -J W3J 0 -J finger_joint 0.04" 
+		doc="Initial joint configuration of the robot"/>
 
+	<!-- Unpause the simulation after loading the robot model -->
+  	<arg	name="unpause"	value="$(eval '' if arg('paused') else '-unpause')" />
+
+      <!-- Possible worlds: [demo.world, pick_place.world, setup_1.world, factory.world]-->
+      <arg name="world_name" default="$(find owr_gazebo)/worlds/setup_1.world" /> 
 
       <!-- Start up simulated world -->
       <include file="$(find gazebo_ros)/launch/empty_world.launch">
-            <!--<arg name="world_name" value="$(arg world_name)" />-->
+            <arg name="world_name" value="$(arg world_name)" />
             <arg name="use_sim_time" value="$(arg use_sim_time)" />
             <arg name="paused" value="$(arg paused)" />
             <arg name="debug" value="$(arg debug)" />
@@ -32,7 +39,7 @@
 
       <!-- Send factory setup urdf to param server -->
       <!-- <param name="setup_description" command="cat '$(find
-      owr_description)/objects/factory_setup_1.urdf'" />  -->
+            owr_description)/objects/factory_setup_1.urdf'" />  -->
 
       <!-- Spawn robot in gazebo (and move it upwards):
             better initial values should be -2.355 and 1.57 but the robot does
@@ -48,38 +55,38 @@
             args="-param robot_description -urdf -unpause -z 0.594 -model owr -J owr::SJ -1.8 -J owr::EJ -1.0"
             output="screen" /> -->
 
-      <!-- <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false"
-      output="screen"
-            args="-param robot_description
-                  -urdf -z 0.594
-                  -model owr"/> -->
+      <node name="spawn_gazebo_model" 
+            pkg="gazebo_ros" 
+            type="spawn_model" 
+            respawn="false"
+            output="screen"
+            args="-param robot_description -urdf -model owr_gripper"/> 
 
       <!-- spawn (robotic arm mode + camera) model in gazebo (at position specified in
       owr_robot.urdf.xacro)-->
-      <node name="spawn_robot_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false"
+      <!--<node name="spawn_robot_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false"
             output="screen"
             args="-param robot_description 
                   -urdf -unpause -model owr_gripper
                   -J SJ 1.57
                   -J EJ -1.57
-                  -J finger_joint 0.0245316" />
+                  -J finger_joint 0.0245316" />-->
+      <!--############################################################################################-->
+      <!-- Spawn the robot in Gazebo -->
+      <!--<node name="spawn_gazebo_model" 
+            pkg="gazebo_ros" 
+            type="spawn_model" 
+            args="-urdf -param robot_description -model owr_gripper $(arg unpause) $(arg world_pose) $(arg initial_joint_positions)"
+            respawn="false" 
+            output="screen" />-->
+            <!--############################################################################################-->
 
-      <!-- <node name="spawn_setup_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false"
-      output="screen"
-            args="-param setup_description -urdf -x 0.828830 -y -0.93032 -z 0.003412 -R 0.001679 -P 0.0 -Y
-      1.566213 -model setup"/>
+      <!-- <node  name="spawn_setup_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false"
+                  output="screen"
+                  args="-param setup_description -urdf 
+                        -x 0.828830 -y -0.93032 -z 0.003412 -R 0.001679 
+                        -P 0.0 -Y 1.566213 -model setup"/>
        -->
-
-      <!-- http://wiki.ros.org/tf -->
-      <!-- static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
-      <!-- <node	name="kinect_1_static_transform_publisher"	pkg="tf"
-      type="static_transform_publisher" 
-          	args="-0.069881 1.105768 1.929314 -1.521473 0.092067 0.004926 world front_camera_rgb_optical_frame
-      100"/>
-       -->
-      <!-- <node	name="kinect_2_static_transform_publisher"	pkg="tf"
-      type="static_transform_publisher" 
-          	args="1.5181 -0.910053 1.4362 3.092944 0.0365 -0.017094 world side_camera_rgb_optical_frame 100"/> -->
 
       <!-- Start controllers  -->
       <include file="$(find owr_gazebo)/launch/owr_control.launch" />
