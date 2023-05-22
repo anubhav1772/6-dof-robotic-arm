@@ -18,20 +18,12 @@
 	<!-- Given the published joint states, publish tf for the robot links -->
 	<node	name="robot_state_publisher"	pkg="robot_state_publisher"	type="robot_state_publisher" respawn="true" output="screen" />
 
-	<node	name="static_transform_publisher_1"	pkg="tf" type="static_transform_publisher" 
-          	args="0 0 0 0 0 0 /map /world 100"/>
-
     <!-- http://wiki.ros.org/tf -->
 	<!-- static_transform_publisher x y z yaw pitch roll frame_id child_frame_id period_in_ms -->
-	<!--<node	name="kinect_1_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
-		args="-0.069881 1.105768 1.929314 -1.521473 0.092067 0.004926 /world /front_camera_rgb_optical_frame 100"/> -->
-	
-	<!--<node	name="kinect_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
-		args="1.274070 -0.011558 1.961223 -3.121294 0.611102 0.021866 world camera_rgb_optical_frame 100"/>-->
+	<node	name="static_transform_publisher_1"	pkg="tf" type="static_transform_publisher" 
+          	args="0 0 0 0 0 0 /map /world 100"/>
 	
 	<!--GAZEBO POSE OF CAMERA W.R.T. WORLD - 1.274070 -0.011558 1.961223 0.021866 0.611102 -3.121294-->
-	<!--<node	name="kinect_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
-		args="1.274070 -0.011558 1.961223 -3.121294 0.611102 0.021866 world camera_rgb_optical_frame 100"/>-->
 
 	<node	name="kinect_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
 		args="1.274070 -0.011558 1.961223 -3.121294 0.611102 0.021866 world camera_link 100"/> 
