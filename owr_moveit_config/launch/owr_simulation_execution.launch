@@ -6,7 +6,7 @@
 	<!-- <arg 	name="use_gui" default="false" /> -->
 	<arg	name="load_robot_description"	default="true" />
 
-	<rosparam command="load" file="$(find owr_moveit_config)/config/owr_jog.yaml"/>
+	<!--<rosparam command="load" file="$(find owr_moveit_config)/config/owr_jog.yaml"/>-->
 	
 	<!-- We do not have a robot connected, so publish fake joint states -->
 	<!-- https://answers.ros.org/question/252114/failed-to-validate-trajectory-couldnt-receive-full-current-joint-state-within-1s-error/ -->
