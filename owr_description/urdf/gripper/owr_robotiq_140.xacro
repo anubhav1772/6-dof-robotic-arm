@@ -32,7 +32,7 @@
 
       <!--force torque sensor-->
       <xacro:robotiq_fts150 prefix="" parent="EEF_Link" >
-        <origin xyz="0.009 0 0 " rpy="-${pi/2} 0 -${pi/2}"/>
+        <origin xyz="0 0 0 " rpy="-${pi/2} 0 -${pi/2}"/>
       </xacro:robotiq_fts150>
 
       <!-- gripper -->
@@ -40,7 +40,7 @@
       <joint name="owr_EEF_Link_gripper_base" type="fixed">
         <parent link= "${prefix}fts_toolside" />
         <child link = "${prefix}robotiq_arg2f_base_link" />
-        <origin xyz=" 0.0 0.0 0.0" rpy="0.0 0.0 ${pi/2}" />
+        <origin xyz="0 0 0" rpy="0 0 ${pi/2}" />
       </joint>
 
       <!--<link name="${prefix}tool" />
