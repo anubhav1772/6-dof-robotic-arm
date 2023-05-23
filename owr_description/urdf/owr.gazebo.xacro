@@ -5,28 +5,36 @@
 
         <gazebo reference="${prefix}base_link">
             <selfCollide>true</selfCollide>
+            <material>Gazebo/Black</material>
         </gazebo>
         <gazebo reference="${prefix}BS_Link">
             <selfCollide>true</selfCollide>
+            <material>Gazebo/DarkGrey</material>
         </gazebo>
         <gazebo reference="${prefix}SE_Link">
             <selfCollide>true</selfCollide>
+            <material>Gazebo/Grey</material>
         </gazebo>
         <gazebo reference="${prefix}EW1_Link">
             <selfCollide>true</selfCollide>
+            <material>Gazebo/DarkGrey</material>
         </gazebo>
         <gazebo reference="${prefix}W1W2_Link">
             <selfCollide>true</selfCollide>
+            <material>Gazebo/Grey</material>
         </gazebo>
         <gazebo reference="${prefix}W2W3_Link">
             <selfCollide>true</selfCollide>
+            <material>Gazebo/DarkGrey</material>
         </gazebo>
         <gazebo reference="${prefix}W3EEF_Link">
             <selfCollide>true</selfCollide>
+            <material>Gazebo/Grey</material>
         </gazebo>
-        <gazebo reference="${prefix}EEF_Link">
+        <!--<gazebo reference="${prefix}EEF_Link">
             <selfCollide>true</selfCollide>
-        </gazebo>
+            <material>Gazebo/Red</material>
+        </gazebo>-->
         
     </xacro:macro>
 

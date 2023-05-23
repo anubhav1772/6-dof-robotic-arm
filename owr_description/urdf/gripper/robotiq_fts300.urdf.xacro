@@ -52,5 +52,10 @@
         </joint>
         <link name="${prefix}fts_toolside"/>
 
+        <gazebo reference="${prefix}fts_robotside">
+            <selfCollide>true</selfCollide>
+            <material>Gazebo/Black</material>
+        </gazebo>
+
     </xacro:macro>
 </robot>
