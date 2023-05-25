@@ -3,7 +3,8 @@
 *
 * Author: Anubhav Singh
 * How to install Point Cloud Library v1.8 (pcl-1.8.0) on Ubuntu 16.04.2 [LTS] for C++
-* * https://askubuntu.com/questions/916260/how-to-install-point-cloud-library-v1-8-pcl-1-8-0-on-ubuntu-16-04-2-lts-for
+* https://askubuntu.com/questions/916260/how-to-install-point-cloud-library-v1-8-pcl-1-8-0-on-ubuntu-16-04-2-lts-for
+* Point Cloud Library v1.10 (pcl-1.10.0) on Ubuntu 20.04 for C++
 */
 
 #include <ros/ros.h>
@@ -88,9 +89,6 @@ class Preprocess
             const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > sp_pcl_table_cloud(cloud_table);
             const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > sp_pcl_objects_cloud(cloud_objects);
 
-            
-            
-
             ROS_INFO("---------------------------------");
             ROS_INFO("Point Cloud Cluster Stats:");
             ROS_INFO("Height: %d", sp_pcl_cloud->height);
@@ -131,18 +129,20 @@ class Preprocess
             // filter along x-axis: left/right 
             pass_filter.setInputCloud(sp_pcl_inliers_cloud);
             pass_filter.setFilterFieldName("x");
-            pass_filter.setFilterLimits(-0.8, 5.0);
+            pass_filter.setFilterLimits(-0.5, 0.5);
             pass_filter.setNegative(false);
             pass_filter.filter(*passthrough_x);
 
             // filter along y-axis: up/down 
+            // RANSAC algorithm doesnot remove the table edge, as it's not planar with table surface.
+            // removing all points below the table height should get rid of the edge 
             pass_filter.setInputCloud(sp_pcl_passthroughx_cloud);
             pass_filter.setFilterFieldName("y");
-            pass_filter.setFilterLimits(-0.5, 0.5);
+            pass_filter.setFilterLimits(-5, 0.2); // second parameter filters pointcloud from front
             pass_filter.setNegative(false);
             pass_filter.filter(*passthrough_y);
 
-           /** ROS_INFO("Applying RANSAC Plane Segmentation...");
+            ROS_INFO("Applying RANSAC Plane Segmentation...");
             
             pcl::PointIndices::Ptr inliers (new pcl::PointIndices);
             pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
@@ -168,17 +168,13 @@ class Preprocess
 
             // remove the planar inliers, extract the rest
             extract.setNegative(true);
-            extract.filter(*cloud_objects);**/
+            extract.filter(*cloud_objects);
 
-            // RANSAC algorithm hasn't removed the table edge, as it's not planar with table surface.
             // filter along z-axis: into/outside of the screen
-            // removing all points below the table height should get rid of the edge
-            
-            //pass_filter.setInputCloud(sp_pcl_objects_cloud);
-            pass_filter.setInputCloud(sp_pcl_passthroughy_cloud);
+            pass_filter.setInputCloud(sp_pcl_objects_cloud);
+            //pass_filter.setInputCloud(sp_pcl_passthroughy_cloud);
             pass_filter.setFilterFieldName("z");
-            pass_filter.setFilterLimits(0.0, 2.0);
-            //pass_filter.setFilterLimits((sp_pcl_passthroughy_cloud->points[inliers->indices[0]].z + 0.01), (sp_pcl_passthroughy_cloud->points[inliers->indices[0]].z + 1));
+            pass_filter.setFilterLimits((sp_pcl_passthroughy_cloud->points[inliers->indices[0]].z + 0.01), (sp_pcl_passthroughy_cloud->points[inliers->indices[0]].z + 1));
             pass_filter.setNegative(false);
             pass_filter.filter(*passthrough_z);
 
@@ -217,10 +213,7 @@ class Preprocess
             // ROS_INFO("publishing custers...");
             // pcl_clusters_pub.publish(cloudClusters);
             // ROS_INFO("published custers...");
-
         }
-
-
 
 };  // Preprocess
 
