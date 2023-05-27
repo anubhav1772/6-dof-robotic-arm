@@ -34,6 +34,14 @@
         <joint name="W2J" value="0"/>
         <joint name="W3J" value="0"/>
     </group_state>
+    <group_state name="HOME" group="arm_manipulator">
+        <joint name="BJ" value="0"/>
+        <joint name="EJ" value="-1.57"/>
+        <joint name="SJ" value="0"/>
+        <joint name="W1J" value="0"/>
+        <joint name="W2J" value="0"/>
+        <joint name="W3J" value="0"/>
+    </group_state>
     <group_state name="OPEN" group="gripper">
         <joint name="finger_joint" value="0.04"/>
     </group_state>
