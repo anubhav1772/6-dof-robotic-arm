@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>owr_trajectory_controller</name>
+  <version>0.0.0</version>
+  <description>The owr_trajectory_controller package</description>
+
+  <maintainer email="anubhav.s@orangewood.co">Anubhav Singh</maintainer>
+
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>TODO</license>
+
+
+  <!-- Url tags are optional, but multiple are allowed, one per tag -->
+  <!-- Optional attribute type can be: website, bugtracker, or repository -->
+  <!-- Example: -->
+  <url type="website">http://wiki.ros.org/Robots/TIAGo/Tutorials/trajectory_controller</url>
+  <url type="website">http://wiki.ros.org/joint_trajectory_controller</url>
+
+  <author email="anubhav.s@orangewood.co">Anubhav Singh</author>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>control_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>trajectory_msgs</build_depend>
+  <build_export_depend>actionlib</build_export_depend>
+  <build_export_depend>control_msgs</build_export_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>trajectory_msgs</build_export_depend>
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
+
+  <build_depend>message_generation</build_depend>
+  <build_depend>moveit_core</build_depend>
+  <build_depend>moveit_ros_planning_interface</build_depend>
+  <build_depend>moveit_ros_perception</build_depend>
+  <build_depend>interactive_markers</build_depend>
+  <build_depend>geometric_shapes</build_depend>
+  <build_depend>moveit_visual_tools</build_depend>
+
+  <exec_depend>moveit_core</exec_depend>
+  <exec_depend>moveit_ros_planning_interface</exec_depend>
+  <exec_depend>moveit_ros_perception</exec_depend>
+  <exec_depend>moveit_visual_tools</exec_depend>
+
+  <build_depend>owr_hw_interface</build_depend>
+  <exec_depend>owr_hw_interface</exec_depend>
+
+  <build_depend>octomap</build_depend>
+  <exec_depend>octomap</exec_depend>
+
+  <build_depend>tf2_ros</build_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <build_export_depend>tf2_ros</build_export_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
