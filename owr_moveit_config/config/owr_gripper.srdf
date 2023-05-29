@@ -45,8 +45,8 @@
     <group_state name="OPEN" group="gripper">
         <joint name="finger_joint" value="0.04"/>
     </group_state>
-    <group_state name="CLOSED" group="gripper">
-        <joint name="finger_joint" value="0.5"/>
+    <group_state name="CLOSE" group="gripper">
+        <joint name="finger_joint" value="0.775"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="end_effector" parent_link="fts_toolside" group="gripper" parent_group="arm_manipulator"/>
