@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>owr_trajectory_controller</name>
+  <name>owr_manipulation</name>
   <version>0.0.0</version>
-  <description>The owr_trajectory_controller package</description>
+  <description>The owr_manipulation package</description>
 
   <maintainer email="anubhav.s@orangewood.co">Anubhav Singh</maintainer>
 
@@ -48,9 +48,6 @@
   <exec_depend>moveit_ros_planning_interface</exec_depend>
   <exec_depend>moveit_ros_perception</exec_depend>
   <exec_depend>moveit_visual_tools</exec_depend>
-
-  <build_depend>owr_hw_interface</build_depend>
-  <exec_depend>owr_hw_interface</exec_depend>
 
   <build_depend>octomap</build_depend>
   <exec_depend>octomap</exec_depend>
