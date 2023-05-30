@@ -7,6 +7,7 @@
 * Point Cloud Library v1.10 (pcl-1.10.0) on Ubuntu 20.04 for C++
 */
 
+#include <robot_vision/SegmentedClustersArray.h>
 #include <ros/ros.h>
 #include <ros/console.h>
 #include <pcl_conversions/pcl_conversions.h>
@@ -24,6 +25,8 @@
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/segmentation/extract_clusters.h>
 #include <sensor_msgs/PointCloud2.h>
+
+
 
 class Preprocess
 {
@@ -43,7 +46,8 @@ class Preprocess
             pcl_cloud_table_pub = nh_.advertise<sensor_msgs::PointCloud2>("/pcl_table", 1);
             pcl_cloud_objects_pub = nh_.advertise<sensor_msgs::PointCloud2>("/pcl_objects", 1);
 
-            // pcl_clusters_pub = nh_.advertise<sensor_stick::SegmentedClustersArray>("/pcl_clusters", 1);
+            //pcl_clusters_pub = nh_.advertise<robot_vision::SegmentedClustersArray>("/pcl_clusters", 1);
+            pcl_clusters_pub = nh_.advertise<sensor_msgs::PointCloud2>("/pcl_clusters", 1);
         }
 
     private:
@@ -60,7 +64,7 @@ class Preprocess
         ros::Publisher pcl_cloud_table_pub;
         ros::Publisher pcl_cloud_objects_pub;
 
-        // ros::Publisher pcl_clusters_pub;
+        ros::Publisher pcl_clusters_pub;
 
         void pclCallback(const sensor_msgs::PointCloud2& cloud_msg)
         {
@@ -76,6 +80,8 @@ class Preprocess
 
             pcl::PointCloud<pcl::PointXYZRGB> *cloud_objects = new pcl::PointCloud<pcl::PointXYZRGB>();
             pcl::PointCloud<pcl::PointXYZRGB> *cloud_table = new pcl::PointCloud<pcl::PointXYZRGB>();
+            
+            pcl::PointCloud<pcl::PointXYZRGB> *cloud_cluster = new pcl::PointCloud<pcl::PointXYZRGB>();
 
             const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > sp_pcl_cloud(p_cloud);
             pcl::fromROSMsg(cloud_msg, *p_cloud);
@@ -88,6 +94,7 @@ class Preprocess
             const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > sp_pcl_passthroughz_cloud(passthrough_z);
             const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > sp_pcl_table_cloud(cloud_table);
             const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > sp_pcl_objects_cloud(cloud_objects);
+            const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZRGB> > sp_pcl_cloud_cluster(cloud_cluster);
 
             ROS_INFO("---------------------------------");
             ROS_INFO("Point Cloud Cluster Stats:");
@@ -174,9 +181,48 @@ class Preprocess
             pass_filter.setInputCloud(sp_pcl_objects_cloud);
             //pass_filter.setInputCloud(sp_pcl_passthroughy_cloud);
             pass_filter.setFilterFieldName("z");
-            pass_filter.setFilterLimits((sp_pcl_passthroughy_cloud->points[inliers->indices[0]].z + 0.01), (sp_pcl_passthroughy_cloud->points[inliers->indices[0]].z + 1));
+            pass_filter.setFilterLimits(-2.0,1.3);
+            // pass_filter.setFilterLimits((sp_pcl_passthroughy_cloud->points[inliers->indices[0]].z + 0.01), (sp_pcl_passthroughy_cloud->points[inliers->indices[0]].z + 1.3));
             pass_filter.setNegative(false);
             pass_filter.filter(*passthrough_z);
+
+           /**
+            // Creating the KdTree object for the search method of the extraction
+            pcl::search::KdTree<pcl::PointXYZRGB>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZRGB>);
+            tree->setInputCloud(sp_pcl_passthroughz_cloud);
+
+            std::vector<pcl::PointIndices> cluster_indices;
+            pcl::EuclideanClusterExtraction<pcl::PointXYZRGB> ec;
+            ec.setClusterTolerance(0.02);// 2cm
+            ec.setMinClusterSize(50);
+            ec.setMaxClusterSize(1000);
+            ec.setSearchMethod(tree);
+            ec.setInputCloud(sp_pcl_passthroughz_cloud);
+            ec.extract(cluster_indices);
+
+            //robot_vision::SegmentedClustersArray msg;
+            sensor_msgs::PointCloud2 pcl_cloud_cluster;
+            for(std::vector<pcl::PointIndices>::const_iterator it = cluster_indices.begin(); it != cluster_indices.end(); ++it)
+            {   
+                pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_cluster_ (new pcl::PointCloud<pcl::PointXYZRGB>);
+                for (std::vector<int>::const_iterator pit = it->indices.begin(); pit != it->indices.end(); ++pit)
+                {
+                    // std::cout<<(*sp_pcl_passthroughz_cloud)[*pit];
+                    cloud_cluster_->push_back((*sp_pcl_passthroughz_cloud)[*pit]);
+                }
+                cloud_cluster_->width = cloud_cluster_->size();
+                cloud_cluster_->height = 1;
+                cloud_cluster_->is_dense = true;
+
+                
+                pcl::toROSMsg(*cloud_cluster_, pcl_cloud_cluster);
+                pcl_cloud_cluster.header.frame_id = "camera_rgb_optical_frame";
+                pcl_clusters_pub.publish(pcl_cloud_cluster);
+
+                ROS_INFO("PointCloud representing the cluster : %lu data points.", cloud_cluster_->size());      
+            }
+
+            **/
 
             sensor_msgs::PointCloud2 pcl_downsampled;
             pcl::toROSMsg(*downsampled, pcl_downsampled);
@@ -211,7 +257,9 @@ class Preprocess
             pcl_passthroughz_pub.publish(pcl_passthroughz);
 
             // ROS_INFO("publishing custers...");
-            // pcl_clusters_pub.publish(cloudClusters);
+            //sensor_msgs::PointCloud2 pcl_cloud_cluster;
+            //pcl::toROSMsg(*cloud_cluster, pcl_cloud_cluster);
+            //pcl_clusters_pub.publish(pcl_cloud_cluster);
             // ROS_INFO("published custers...");
         }
 
