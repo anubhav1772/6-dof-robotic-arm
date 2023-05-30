@@ -5,8 +5,8 @@ sensors:
     max_update_rate: 1
     padding_offset: 0.1
     padding_scale: 1
-    # point_cloud_topic: /front_camera/depth_registered/points
-    point_cloud_topic: /pcl_downsampled
+    point_cloud_topic: /pcl_passthroughz
+    # point_cloud_topic: /pcl_downsampled
     # point_cloud_topic: /camera/depth_registered/points
     point_subsample: 1
     sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
