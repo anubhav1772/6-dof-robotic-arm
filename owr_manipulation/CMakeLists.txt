@@ -34,6 +34,9 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS})
 
+add_executable(ArmMotion src/ArmMotion.cpp)
+add_dependencies(ArmMotion ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(ArmMotion ${catkin_LIBRARIES})
 
 add_executable(joint_trajectory_control src/joint_trajectory_control.cpp)
 add_dependencies(joint_trajectory_control ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
