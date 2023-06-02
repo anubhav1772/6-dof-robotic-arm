@@ -5,10 +5,16 @@
   <arg name="moveit_controller_manager" />
   <arg name="fake_execution_type" default="interpolate" />
 
+
   <!-- Flag indicating whether MoveIt is allowed to load/unload  or switch controllers -->
   <arg name="moveit_manage_controllers" default="true"/>
   <param name="moveit_manage_controllers" value="$(arg moveit_manage_controllers)"/>
 
+  <!-- Fix to Controller is taking too long to execute trajectory 
+      (the expected upper bound for the trajectory execution was 6.062484 seconds). 
+      Stopping trajectory.-->
+  <!-- https://github.com/ros-planning/moveit2/issues/1848 -->
+  <param name="trajectory_execution/execution_duration_monitoring" value="false"/> 
   <!-- When determining the expected duration of a trajectory, this multiplicative factor is applied to get the allowed duration of execution -->
   <param name="trajectory_execution/allowed_execution_duration_scaling" value="1.2"/> <!-- default 1.2 -->
   <!-- Allow more than the expected execution time before triggering a trajectory cancel (applied after scaling) -->
@@ -21,3 +27,4 @@
   <include file="$(dirname)/$(arg moveit_controller_manager)_moveit_controller_manager.launch.xml" pass_all_args="true" />
 
 </launch>
+
