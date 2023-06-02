@@ -22,6 +22,21 @@ Launch moveit and rviz:
 
     $ roslaunch owr_moveit_config owr_simulation_execution.launch
 
+### Disable Collision in Rviz
+
+<table>
+  <tr>
+    <td>Filtered PointCloud Data</td>
+     <td>Generated Octomap</td>
+     <td>Collision disabled for 3 objects</td>
+  </tr>
+  <tr>
+    <td><img src="https://drive.google.com/uc?export=view&id=1ibvJi3YhnAwvcO17GX6TZhM4_OUAAdyE" width=350 height=150></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1aIRiaYav0WUM5_HFjkn2oanGViiooOTX" width=350 height=150></td>
+    <td><img src="https://drive.google.com/uc?export=view&id=1YU-VBAozAQOEHTdl8ZJHobHELmK8KhzD" width=350 height=150></td>
+  </tr>
+ </table>
+
 ### Dependencies
 ---
 
