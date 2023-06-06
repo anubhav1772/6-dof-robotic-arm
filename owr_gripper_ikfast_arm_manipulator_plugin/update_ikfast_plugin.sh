@@ -1,0 +1,1 @@
+rosrun moveit_kinematics create_ikfast_moveit_plugin.py owr_gripper arm_manipulator owr_gripper_ikfast_arm_manipulator_plugin /home/anubhav1772/catkin_ws/src/owr_gripper_ikfast_arm_manipulator_plugin/src/owr_gripper_arm_manipulator_ikfast_solver.cpp
