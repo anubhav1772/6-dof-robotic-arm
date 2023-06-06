@@ -14,7 +14,8 @@ Make sure the `#include` line points to the output file from IKFast.
 (If you get an error, you can try changing the order of the filename/arguments to g++. You may need to include openravepy. You may need to install the lapack library.)
 
     g++ ikfastdemo.cpp -lstdc++ -llapack -o compute -lrt -I<openravepy>
-Run the program to check the correct usage:
+    
+#### Run the program to check the correct usage:
 
     ./compute
 You can compute the forward kinematics by specifying all joint angles. Inverse kinematics can be found from either a translation-quaternion or translation-rotation matrix pose. Kinematics can also be verified visually after creating a plugin (below), using the planning-scene environment.
