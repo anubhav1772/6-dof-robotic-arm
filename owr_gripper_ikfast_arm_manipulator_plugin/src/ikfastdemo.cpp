@@ -60,7 +60,7 @@ The API calls are slightly different for versions > 54
 */
 
 #define IK_VERSION 61
-#include "output_ikfast61.cpp"
+#include "ikfast61_arm_manipulator.cpp"
 
 //#define IK_VERSION 56
 //#include "ikfast56.Transform6D.0_1_2_3_4_5.cpp"
