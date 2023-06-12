@@ -108,26 +108,6 @@ ArmMotion::ArmMotion(ros::NodeHandle nh)
     // We can also print the name of the end-effector link for this group.
     ROS_INFO_NAMED("ARM MOTION", "End effector link: %s", arm_move_group.getEndEffectorLink().c_str());
 
-    /*
-          position:
-            x: 0.49180117902725456
-            y: -0.047717361402104384
-            z: 1.5811484550715904
-          orientation:
-            x: -0.6021321052069217
-            y: 0.6022171464773562
-            z: -0.3707164052929471
-            w: 0.37059517429997146
-          name:
-            - BJ
-            - SJ
-            - EJ
-            - W1J
-            - W2J
-            - W3J
-          position: [-0.1260764042311635, 0.10643234013877567, -0.8898214180865436, 0.11812358627070374, 1.2559317106873555, -0.0937550268128069]
-    */
-
     moveit::planning_interface::MoveGroupInterface::Plan arm_plan;
     geometry_msgs::Pose target_pose;
 
@@ -135,9 +115,9 @@ ArmMotion::ArmMotion(ros::NodeHandle nh)
     target_pose.orientation.x = -0.6021321052069217;
     target_pose.orientation.y = 0.6022171464773562;
     target_pose.orientation.z = -0.3707164052929471;
-    target_pose.position.x = 0.4918;
-    target_pose.position.y = -0.0477;
-    target_pose.position.z = 1.5811;
+    target_pose.position.x = 0.491;
+    target_pose.position.y = -0.047;
+    target_pose.position.z = 1.581;
 
     // set starting pose
     arm_move_group.setStartStateToCurrentState();
@@ -145,7 +125,35 @@ ArmMotion::ArmMotion(ros::NodeHandle nh)
     arm_move_group.setPoseTarget(target_pose);
     arm_move_group.setGoalTolerance(0.01);
     bool success = static_cast<bool>(arm_move_group.plan(arm_plan));
-    ROS_INFO("Plan to target: %s", success ? "SUCCEEDED" : "FAILED");
+    ROS_INFO("Plan to target 1: %s", success ? "SUCCEEDED" : "FAILED");
+
+    arm_move_group.execute(arm_plan);
+
+    target_pose.orientation.w = 0.37173772501897173;
+    target_pose.orientation.x = -0.6023516784804275;
+    target_pose.orientation.y = 0.5983131228259329;
+    target_pose.orientation.z = -0.3755062266911314;
+    target_pose.position.x = 0.500886;
+    target_pose.position.y = 0.053937;
+    target_pose.position.z = 1.5773409;
+
+    arm_move_group.setPoseTarget(target_pose);
+    success = static_cast<bool>(arm_move_group.plan(arm_plan));
+    ROS_INFO("Plan to target 2: %s", success ? "SUCCEEDED" : "FAILED");
+
+    arm_move_group.execute(arm_plan);
+
+    target_pose.orientation.w = 0.3690263551567426;
+    target_pose.orientation.x = -0.601687141809745;
+    target_pose.orientation.y = 0.601910625422726;
+    target_pose.orientation.z = -0.373491273771921;
+    target_pose.position.x = 0.57585;
+    target_pose.position.y = 0.04420;
+    target_pose.position.z = 1.54783;
+
+    arm_move_group.setPoseTarget(target_pose);
+    success = static_cast<bool>(arm_move_group.plan(arm_plan));
+    ROS_INFO("Plan to target 3: %s", success ? "SUCCEEDED" : "FAILED");
 
     arm_move_group.execute(arm_plan);
 }
