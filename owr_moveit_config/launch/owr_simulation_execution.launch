@@ -3,17 +3,21 @@
 	<!-- By default, we are not in debug mode -->
   	<arg	name="debug"	default="false" />
   	<arg	name="config"	default="true"	doc=""/>
-	<!-- <arg 	name="use_gui" default="false" /> -->
+	<arg 	name="use_gui" default="false" /> 
 	<arg	name="load_robot_description"	default="true" />
 
 	<!--<rosparam command="load" file="$(find owr_moveit_config)/config/owr_jog.yaml"/>-->
 	
 	<!-- We do not have a robot connected, so publish fake joint states -->
+	<!-- If you are using Gazebo as your simulator within the ROS framework, 
+		 you typically don't need to include the joint_state_publisher separately. 
+		 Gazebo provides its own plugin called "gazebo_ros_control" 
+		 that automatically publishes joint states to the ROS system.-->
 	<!-- https://answers.ros.org/question/252114/failed-to-validate-trajectory-couldnt-receive-full-current-joint-state-within-1s-error/ -->
-	<!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+	<!--<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
 		<param name="use_gui" value="$(arg use_gui)"/>
 		<rosparam param="source_list">["/joint_states"]</rosparam>
-	</node> -->
+	</node>-->
 
 	<!-- Given the published joint states, publish tf for the robot links -->
 	<node	name="robot_state_publisher"	pkg="robot_state_publisher"	type="robot_state_publisher" respawn="true" output="screen" />
