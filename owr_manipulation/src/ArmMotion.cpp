@@ -156,6 +156,48 @@ ArmMotion::ArmMotion(ros::NodeHandle nh)
     ROS_INFO("Plan to target 3: %s", success ? "SUCCEEDED" : "FAILED");
 
     arm_move_group.execute(arm_plan);
+
+    target_pose.orientation.w = 0.3676918763010906;
+    target_pose.orientation.x = -0.5994411268728012;
+    target_pose.orientation.y = 0.6064397537258589;
+    target_pose.orientation.z = -0.37108468658322347;
+    target_pose.position.x = 0.5515;
+    target_pose.position.y = 0.0539;
+    target_pose.position.z = 1.4962;
+
+    arm_move_group.setPoseTarget(target_pose);
+    success = static_cast<bool>(arm_move_group.plan(arm_plan));
+    ROS_INFO("Plan to target 4: %s", success ? "SUCCEEDED" : "FAILED");
+
+    arm_move_group.execute(arm_plan);
+
+    target_pose.orientation.w = 0.3677746452140885;
+    target_pose.orientation.x = -0.5989122319095013;
+    target_pose.orientation.y = 0.6065816513639798;
+    target_pose.orientation.z = -0.3716243385939331;
+    target_pose.position.x = 0.6181;
+    target_pose.position.y = 0.0525;
+    target_pose.position.z = 1.4627;
+
+    arm_move_group.setPoseTarget(target_pose);
+    success = static_cast<bool>(arm_move_group.plan(arm_plan));
+    ROS_INFO("Plan to target 5: %s", success ? "SUCCEEDED" : "FAILED");
+
+    arm_move_group.execute(arm_plan);
+
+    target_pose.orientation.w = 0.36722238673895086;
+    target_pose.orientation.x = -0.5989550565473403;
+    target_pose.orientation.y = 0.6069576366403756;
+    target_pose.orientation.z = -0.37148753173969457;
+    target_pose.position.x = 0.6541;
+    target_pose.position.y = 0.0516;
+    target_pose.position.z = 1.4439;
+
+    arm_move_group.setPoseTarget(target_pose);
+    success = static_cast<bool>(arm_move_group.plan(arm_plan));
+    ROS_INFO("Plan to target 6: %s", success ? "SUCCEEDED" : "FAILED");
+
+    arm_move_group.execute(arm_plan);
 }
 
 ArmMotion::~ArmMotion(){}
