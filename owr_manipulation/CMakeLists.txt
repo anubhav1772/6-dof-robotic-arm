@@ -46,6 +46,10 @@ add_executable(PickNPlace src/PickNPlace.cpp)
 add_dependencies(PickNPlace ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(PickNPlace ${catkin_LIBRARIES})
 
+add_executable(PickNPlaceTest src/PickNPlaceTest.cpp)
+add_dependencies(PickNPlaceTest ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(PickNPlaceTest ${catkin_LIBRARIES})
+
 add_executable(planning_scene_node src/planning_scene.cpp)
 add_dependencies(planning_scene_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(planning_scene_node ${catkin_LIBRARIES})
