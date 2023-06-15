@@ -6,9 +6,8 @@ Panels:
       Expanded:
         - /MotionPlanning1/Planning Metrics1
         - /MotionPlanning1/Planned Path1
-        - /RobotModel1
       Splitter Ratio: 0.5
-    Tree Height: 786
+    Tree Height: 482
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -68,122 +67,10 @@ Visualization Manager:
         Interrupt Display: false
         Links:
           All Links Enabled: true
-          BS_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          EEF_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          EW1_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           Expand Joint Details: false
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          SE_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          W1W2_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          W2W3_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          W3EEF_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          fts_robotside:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          fts_toolside:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          left_finger_tip:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_inner_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_outer_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_outer_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_finger_tip:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_inner_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_outer_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_outer_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          robotiq_arg2f_base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          robotiq_force_torque_frame_id:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          world:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
         Loop Animation: false
         Robot Alpha: 0.5
         Robot Color: 150; 50; 150
@@ -226,122 +113,10 @@ Visualization Manager:
         Attached Body Color: 150; 50; 150
         Links:
           All Links Enabled: true
-          BS_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          EEF_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          EW1_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
           Expand Joint Details: false
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          SE_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          W1W2_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          W2W3_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          W3EEF_Link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          fts_robotside:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          fts_toolside:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          left_finger_tip:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_inner_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_outer_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          left_outer_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_finger_tip:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_inner_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_outer_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          right_outer_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          robotiq_arg2f_base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          robotiq_force_torque_frame_id:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          world:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true
@@ -377,7 +152,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Image
       Enabled: false
-      Image Topic: ""
+      Image Topic: /camera/rgb/image_raw
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -405,7 +180,7 @@ Visualization Manager:
       Update Interval: 0
       Value: false
     - Class: moveit_rviz_plugin/PlanningScene
-      Enabled: false
+      Enabled: true
       Move Group Namespace: ""
       Name: PlanningScene
       Planning Scene Topic: move_group/monitored_planning_scene
@@ -540,134 +315,22 @@ Visualization Manager:
         Robot Alpha: 1
         Show Robot Collision: false
         Show Robot Visual: true
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
-        BS_Link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        EEF_Link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        EW1_Link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        SE_Link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        W1W2_Link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        W2W3_Link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        W3EEF_Link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        fts_robotside:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        fts_toolside:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_finger_tip:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_inner_finger:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_inner_knuckle:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_outer_finger:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_outer_knuckle:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_finger_tip:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_inner_finger:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_inner_knuckle:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_outer_finger:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_outer_knuckle:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_arg2f_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_force_torque_frame_id:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        world:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
   Enabled: true
   Global Options:
@@ -685,7 +348,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 5.931339263916016
+      Distance: 3.52506160736084
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -701,27 +364,28 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4800000488758087
+      Pitch: 1.1449997425079346
       Target Frame: world
-      Yaw: 5.0049519538879395
+      Yaw: 0.011768341064453125
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 937
+  Height: 633
   Help:
     collapsed: false
   Hide Left Dock: false
-  Hide Right Dock: false
+  Hide Right Dock: true
   Image:
     collapsed: false
   MotionPlanning:
-    collapsed: false
+    collapsed: true
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000200000000000001f30000034ffc0200000007fb000000100044006900730070006c006100790073010000003d0000034f000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a00560069006500770073000000010c000000a4000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000000a0049006d00610067006500000002dd000000af0000001600ffffff00000001000001f30000034ffc0200000001fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067000000003d0000034f0000017d00ffffff000005530000034f00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000200000000000001580000021ffc0200000007fb000000100044006900730070006c006100790073010000003d0000021f000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a00560069006500770073000000010c000000a4000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb0000000a0049006d0061006700650000000138000001240000001600ffffff00000001000001f30000021ffc0200000001fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067000000003d0000021f0000017d00ffffff0000036e0000021f00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
-  Width: 1868
+  Width: 1228
   X: 0
   Y: 27
+
