@@ -19,7 +19,11 @@ arm_manipulator_controller:
     - W2J
     - W3J
   constraints:
-    goal_time: 40.0
+    # specifies max time allowed for the controller to achieve the desired goal position
+    goal_time: 1.0
+    # specify the tolerance for considering a joint/actuator as "stopped" during trajectory execution;
+    # determines the vel threshold below which the joint/actuator is considered to have reached its goal
+    # position and is considered as "stopped"
     stopped_velocity_tolerance: 0.05
     BJ: {trajectory: 0.1, goal: 0.1}
     SJ: {trajectory: 0.1, goal: 0.1}
@@ -27,9 +31,14 @@ arm_manipulator_controller:
     W1J: {trajectory: 0.1, goal: 0.1}
     W2J: {trajectory: 0.1, goal: 0.1}
     W3J: {trajectory: 0.1, goal: 0.1}
-  stop_trajectory_duration: 0.1
+  # specify the duration for which the controller should maintain 0 vel 
+  # after a trajectory has been completed or stopped.
+  # ensures joints/actuators remain motionless for a certain period of time before 
+  # any new trajectories are executed
+  stop_trajectory_duration: 0.5
+  # control the rate at which state of a robot or its joints is published
   state_publish_rate: 50
-  action_monitor_rate: 20
+  action_monitor_rate: 10
   allow_partial_joints_goal: True
 
 # GripperActionCOntroller is useful only for a one DOF gripper 
@@ -51,8 +60,8 @@ gripper_trajectory_controller:
     stopped_velocity_tolerance: 0.05
     finger_joint: {trajectory: 0.1, goal: 0.1}
   stop_trajectory_duration: 0.5
-  state_publish_rate:  25
-  action_monitor_rate: 10
+  state_publish_rate:  50
+  action_monitor_rate: 20
 
 #GripperActionController
 # Joint Group Position Controller (for group of joint controllers)
