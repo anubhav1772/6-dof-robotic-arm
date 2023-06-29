@@ -104,11 +104,11 @@ PickNPlaceTest::PickNPlaceTest(ros::NodeHandle nh)
     OBJECT_MESH_PATH_LIST.push_back(OBJECT_9_MESH_PATH);
 
     // cracker pose
-    // 0.853303 0.001113 1.233986 -0.040365 -0.000621 -1.539607
+    // 0.854077 -0.02371 1.234 -0.040365 -0.000621 -1.5396
     tf2::Quaternion qt = RPYToQuaternion(-0.040365, -0.000621, -1.539607);
-    target_mesh_pose.position.x = 0.853303;
-    target_mesh_pose.position.y = 0.001113;
-    target_mesh_pose.position.z = 1.233986;
+    target_mesh_pose.position.x = 0.854077;
+    target_mesh_pose.position.y = -0.02371;
+    target_mesh_pose.position.z = 1.234;
     target_mesh_pose.orientation.w = qt.getW();
     target_mesh_pose.orientation.x = qt.getX();
     target_mesh_pose.orientation.y = qt.getY();
@@ -136,10 +136,19 @@ PickNPlaceTest::PickNPlaceTest(ros::NodeHandle nh)
     {
         std::string target_id;
         target_id = "target" + std::to_string(i);
+        
+        // setEntry() allows us to specify whether collisions are allowed or not between a 
+        //            pair of objects/links.
+        // setEntry(link1, link2, allowed)
+        // allowed=true allows collision between links link1 and link2
         acm.setEntry(target_id, "left_finger_tip", true);
-        //acm.setEntry(target_id, "left_inner_knucle_joint", true);
+        acm.setEntry(target_id, "left_inner_knuckle", true);
+        acm.setEntry(target_id, "left_inner_finger", true);
+        acm.setEntry(target_id, "left_outer_finger", true);
         acm.setEntry(target_id, "right_finger_tip", true);
-        //acm.setEntry(target_id, "right_inner_knucle_joint", true);
+        acm.setEntry(target_id, "right_inner_knuckle", true);
+        acm.setEntry(target_id, "right_inner_finger", true);
+        acm.setEntry(target_id, "right_outer_finger", true);
     }
 
     std::cout<<"\nAllowedCollisionMatrix:\n";
@@ -153,107 +162,77 @@ PickNPlaceTest::PickNPlaceTest(ros::NodeHandle nh)
 
     moveit::planning_interface::MoveGroupInterface::Plan arm_plan;
     geometry_msgs::Pose target_pose;
-   
-    target_pose.orientation.w = 0.37059517429997146;
-    target_pose.orientation.x = -0.6021321052069217;
-    target_pose.orientation.y = 0.6022171464773562;
-    target_pose.orientation.z = -0.3707164052929471;
-    target_pose.position.x = 0.491;
-    target_pose.position.y = -0.047;
-    target_pose.position.z = 1.581;
+
+    target_pose.orientation.w = 0.4947743972838332;
+    target_pose.orientation.x = -0.4952133362195981;
+    target_pose.orientation.y = 0.5001244266339454;
+    target_pose.orientation.z = -0.5097426853881694;
+    target_pose.position.x = 0.61245;
+    target_pose.position.y = -0.01091;
+    target_pose.position.z = 1.43022;
 
     // set starting pose
     arm_move_group.setStartStateToCurrentState();
     // set target pose
     arm_move_group.setPoseTarget(target_pose);
-    arm_move_group.setGoalTolerance(0.01);
+    // 5 cm (0.05m)
+    arm_move_group.setGoalTolerance(0.05);
     bool success = static_cast<bool>(arm_move_group.plan(arm_plan));
     ROS_INFO("Plan to target 1: %s", success ? "SUCCEEDED" : "FAILED");
 
     arm_move_group.execute(arm_plan);
 
-    target_pose.orientation.w = 0.37256988642972627;
-    target_pose.orientation.x = -0.6024787457501314;
-    target_pose.orientation.y = 0.5991831674475557;
-    target_pose.orientation.z = -0.37308252772356404;
-    target_pose.position.x = 0.4822;
-    target_pose.position.y = 0.0201;
-    target_pose.position.z = 1.5801;
+    target_pose.orientation.w = 0.4947874914183782;
+    target_pose.orientation.x = -0.49524148204092966;
+    target_pose.orientation.y = 0.5001619108730555;
+    target_pose.orientation.z = -0.5096658471132098;
+    target_pose.position.x = 0.61342;
+    target_pose.position.y = -0.01187;
+    target_pose.position.z = 1.33021;
 
+    arm_move_group.setStartStateToCurrentState();
+    arm_move_group.setGoalTolerance(0.05);
     arm_move_group.setPoseTarget(target_pose);
     success = static_cast<bool>(arm_move_group.plan(arm_plan));
     ROS_INFO("Plan to target 2: %s", success ? "SUCCEEDED" : "FAILED");
 
     arm_move_group.execute(arm_plan);
 
-    target_pose.orientation.w = 0.37245183613908933;
-    target_pose.orientation.x = -0.6025127334487256;
-    target_pose.orientation.y = 0.5991964693056608;
-    target_pose.orientation.z = -0.37312414416705364;
-    target_pose.position.x = 0.5298;
-    target_pose.position.y = 0.0201;
-    target_pose.position.z = 1.5565;
-
-    arm_move_group.setPoseTarget(target_pose);
-    success = static_cast<bool>(arm_move_group.plan(arm_plan));
-    ROS_INFO("Plan to target 3: %s", success ? "SUCCEEDED" : "FAILED");
-
-    arm_move_group.execute(arm_plan);
-
     // close_gripper == false means open gripper action
     // value can decrease from 0.775 -> 0.04
-    OperateGripper(false, 0.4);
+    // OperateGripper(false, 0.4);   
 
-    //ros::Duration(1.0).sleep();
-    target_pose.orientation.w = 0.372119864562966;
-    target_pose.orientation.x = -0.5997353082394514;
-    target_pose.orientation.y = 0.5993612138048082;
-    target_pose.orientation.z = -0.37763805665610206;
-    target_pose.position.x = 0.62659;
-    target_pose.position.y = 0.017927;
-    target_pose.position.z = 1.51108;
-
-    arm_move_group.setPoseTarget(target_pose);
-    success = static_cast<bool>(arm_move_group.plan(arm_plan));
-    ROS_INFO("Plan to target 4: %s", success ? "SUCCEEDED" : "FAILED");
-
-    arm_move_group.execute(arm_plan);
-    /*
-    target_pose.orientation.w = 0.375501688735063;
-    target_pose.orientation.x = -0.6023775254747477;
-    target_pose.orientation.y = 0.5976142117254233;
-    target_pose.orientation.z = -0.3728230847249624;
-    target_pose.position.x = 0.6277;
-    target_pose.position.y = 0.01498;
-    target_pose.position.z = 1.5140;
-
-    arm_move_group.setPoseTarget(target_pose);
-    success = static_cast<bool>(arm_move_group.plan(arm_plan));
-    ROS_INFO("Plan to target 4: %s", success ? "SUCCEEDED" : "FAILED");
-
-    arm_move_group.execute(arm_plan);
-    */
     // close_gripper == true means close gripper action
     // value can decrease from 0.04 -> 0.775 
-    /*
     OperateGripper(true, 0.55);
 
     moveit_msgs::AttachedCollisionObject aco;
     aco.object.id = collision_objects[0].id;
     aco.link_name = "left_finger_tip";
+    // (touch_links) field allows us to specify a set of links that should be excluded 
+    //               from collision checking, even if they come into contact with the attached object.
+    aco.touch_links.push_back("left_inner_knuckle");
+    //aco.touch_links.push_back("left_inner_finger");
     aco.touch_links.push_back("right_finger_tip");
+    aco.touch_links.push_back("right_inner_knuckle");
+    //aco.touch_links.push_back("right_inner_finger");
+    
     aco.object.operation = moveit_msgs::CollisionObject::ADD;
     planning_scene_interface.applyAttachedCollisionObject(aco);
 
-    target_pose.position.z = target_pose.position.z + 0.6;
-    target_pose.position.x = target_pose.position.x - 0.3;
-    
+    target_pose.orientation.w = 0.6886415929006499;
+    target_pose.orientation.x = -0.6942511017470506;
+    target_pose.orientation.y = 0.14397427108592917;
+    target_pose.orientation.z = -0.1518537899281326;
+    target_pose.position.x = 0.23252;
+    target_pose.position.y = 0.20698;
+    target_pose.position.z = 1.41375;
+  
+    arm_move_group.setStartStateToCurrentState();
+    arm_move_group.setGoalTolerance(0.05);
     arm_move_group.setPoseTarget(target_pose);
     success = static_cast<bool>(arm_move_group.plan(arm_plan));
-    ROS_INFO("Plan to target 5: %s", success ? "SUCCEEDED" : "FAILED");
-
-    arm_move_group.execute(arm_plan);
-    */
+    ROS_INFO("Plan to target 3 (place object): %s", success ? "SUCCEEDED" : "FAILED");
 }
 
 PickNPlaceTest::~PickNPlaceTest() {}
