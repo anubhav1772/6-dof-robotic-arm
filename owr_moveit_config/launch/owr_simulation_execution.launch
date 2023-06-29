@@ -57,7 +57,7 @@
   	</include>
 
 	<!-- go to HOME pose on start -->
-	<node	name="setHomePose"	pkg="owr_moveit_config"	type="setHomePose" respawn="false" output="screen" />
+	<!--<node	name="setHomePose"	pkg="owr_moveit_config"	type="setHomePose" respawn="false" output="screen" />-->
 
 	<!-- Launch pointcloud downsampling node -->
 	<!--<node	name="downsampling"	pkg="robot_vision"	type="downsampling" respawn="true" output="screen" />-->
