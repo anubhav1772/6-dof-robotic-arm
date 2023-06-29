@@ -57,7 +57,7 @@
     <include>
       <uri>model://cracker</uri>
       <name>cracker</name>
-      <pose>0.853303 0.001113 1.233986 -0.040365 -0.000621 -1.539607</pose>
+      <pose>0.854077 -0.02371 1.234 -0.040365 -0.000621 -1.5396</pose>
     </include>
 
     <model name='table'>
