@@ -194,10 +194,19 @@ PickNPlace::PickNPlace(ros::NodeHandle nh)
     {
         std::string target_id;
         target_id = "target" + std::to_string(i);
+
+        // setEntry() allows us to specify whether collisions are allowed or not between a
+        //            pair of objects/links.
+        // setEntry(link1, link2, allowed)
+        // allowed=true allows collision between links link1 and link2
         acm.setEntry(target_id, "left_finger_tip", true);
-        acm.setEntry(target_id, "left_inner_knucle_joint", true);
+        acm.setEntry(target_id, "left_inner_knuckle", true);
+        acm.setEntry(target_id, "left_inner_finger", true);
+        acm.setEntry(target_id, "left_outer_finger", true);
         acm.setEntry(target_id, "right_finger_tip", true);
-        acm.setEntry(target_id, "right_inner_knucle_joint", true);
+        acm.setEntry(target_id, "right_inner_knuckle", true);
+        acm.setEntry(target_id, "right_inner_finger", true);
+        acm.setEntry(target_id, "right_outer_finger", true);
     }
 
     std::cout<<"\nAllowedCollisionMatrix:\n";
