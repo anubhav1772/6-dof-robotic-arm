@@ -8,6 +8,7 @@ jog_joint_node:
     - W1J
     - W2J
     - W3J
+    - finger_joint
 
 jog_frame_node:
   # Specify the list of group name of moveit to jog. You can see the
@@ -15,4 +16,4 @@ jog_frame_node:
   group_names:
     - arm_manipulator
   link_names:
-    - EEF_Link
+    - fts_toolside #EEF_Link
