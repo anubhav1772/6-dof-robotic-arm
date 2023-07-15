@@ -21,8 +21,14 @@
 	<!-- Unpause the simulation after loading the robot model -->
   	<arg	name="unpause"	value="$(eval '' if arg('paused') else '-unpause')" />
 
-      <!-- Possible worlds: [demo.world, pick_place.world, setup_1.world, factory.world]-->
-      <arg name="world_name" default="$(find owr_gazebo)/worlds/setup_1.world" /> 
+      <!-- Possible worlds: [demo.world, pick_place.world, setup_1.world, setup_2.world, factory.world]-->
+      <!--
+            demo.world - empty world with Kinect 3D Camera
+            setup_1.world - table with an object on it, Kinect 3D camera
+            setup_2.world - table with multiple objects on top of it, Kinect 3D camera
+            factory.world - factory setup with a chair hanging on a hook
+      -->
+      <arg name="world_name" default="$(find owr_gazebo)/worlds/demo.world" /> 
 
       <!-- Start up simulated world -->
       <include file="$(find gazebo_ros)/launch/empty_world.launch">
