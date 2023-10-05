@@ -28,7 +28,6 @@
           	args="0 0 0 0 0 0 /map /world 100"/>
 	
 	<!-- GAZEBO POSE OF CAMERA W.R.T. WORLD : [1.274070 0.020488 1.961223 0.000808 0.735998 -3.118214] -->
-
 	<!--<node	name="kinect_static_transform_publisher"	pkg="tf" type="static_transform_publisher" 
 		args="1.274070 0.020488 1.961223 -3.118214 0.735998 0.000808 world camera_link 100"/> 
 	
@@ -62,8 +61,8 @@
 	<!-- Launch pointcloud downsampling node -->
 	<!--<node	name="downsampling"	pkg="robot_vision"	type="downsampling" respawn="true" output="screen" />-->
 	<!-- Point cloud data transformer node -->
-	<!--<node	name="transformer"	pkg="robot_vision"	type="transformer" respawn="false" output="screen"/>--> 
+	<!--<node	name="transformer_node"	pkg="robot_vision"	type="point_cloud_tf" respawn="false" output="screen"/>--> 
 	
 	<!-- Point cloud data preprocessing node -->
-	<node	name="point_cloud_preprocess"	pkg="robot_vision"	type="point_cloud_preprocess" respawn="false" output="screen"/>
+	<node	name="preprocessing_node"	pkg="robot_vision"	type="point_cloud_preprocessing" respawn="false" output="screen"/>
 </launch>
