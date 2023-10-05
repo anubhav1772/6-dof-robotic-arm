@@ -3,8 +3,6 @@
 
 
 ### Installation
----
-
 Clone the repository using:
 
     git clone https://github.com/anubhav1772/6-dof-robotic-arm.git
@@ -23,7 +21,6 @@ Launch moveit and rviz:
     $ roslaunch owr_moveit_config owr_simulation_execution.launch
 
 ### Disable Collision in Rviz
-
 <table>
   <tr>
     <td>Filtered PointCloud Data</td>
@@ -37,11 +34,8 @@ Launch moveit and rviz:
   </tr>
  </table>
 
-### Dependencies
----
-
-pcl-1.10.0
-
-ROS - Noetic
-
-Gazebo version 11.11.0
+### Requirements
+* [robot_vision package](https://github.com/anubhav1772/robot_vision)
+* [pcl v1.13.1](https://github.com/PointCloudLibrary/pcl/releases) - [Installation](https://pcl.readthedocs.io/projects/tutorials/en/latest/compiling_pcl_posix.html)
+* ROS Noetic (Ubuntu 20.04)
+* Gazebo v11.11.0
